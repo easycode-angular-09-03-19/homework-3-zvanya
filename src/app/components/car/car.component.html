@@ -1,0 +1,46 @@
+<ul>
+  <li>Модель: {{ info.name }}</li>
+  <li>Объем бака: {{ info.fuelTankVolume }} л</li>
+  <li>Километраж: {{ info.kilometrage }} км</li>
+  <li>Количество топлива: <b>{{ info.currentFuelValue }}</b> л</li>
+</ul>
+
+<ul>
+  <li *ngFor="let prop of info.additionalProperties">{{prop}}</li>
+</ul>
+
+<div id="carControl" class="d-flex">
+  <div>
+    Дистанция, км: <input type="text" class="form-control" [(ngModel)]="_distance">
+    <hr>
+    <button class="btn btn-primary" (click)="drive(_distance)">Ехать</button>
+  </div>
+  <div [hidden]="!_isTankEmpty">
+    Объем топлива, л: <input type="text" class="form-control" [(ngModel)]="_fuel">
+    <hr>
+    <button class="btn btn-primary" (click)="refuel(_fuel)">Заправиться</button>
+  </div>
+</div>
+<hr>
+
+<!-- Предупреждения -->
+<div class="alert alert-danger text-center" *ngIf="_currentFuelValue < 1">
+  Пора заправиться!
+</div>
+
+<div class="alert alert-danger text-center" *ngIf="!_isDistanceCorrect">
+  Введите корректное количество километров, которые хотите проехать.
+</div>
+
+<div class="alert alert-danger text-center" *ngIf="!_isRefuelValueCorrect">
+  Введите корректное количество топлива для заправки.
+</div>
+
+<div class="alert alert-warning text-center" *ngIf="!_isRefuelVolumeCorrect">
+  Количество топлива больше объема бака!
+</div>
+
+<div class="alert alert-success text-center" *ngIf="!_isTankEmpty">
+  Можно ехать!
+</div>
+<!-- Предупреждения. конец -->
