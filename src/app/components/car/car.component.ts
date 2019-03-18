@@ -49,9 +49,13 @@ export class CarComponent implements ICar {
     this.updateInfo();
   }
   
+  /**
+   * drive: поехать на distance километров
+   * @param {Number} distance
+   */
   public drive(distance: number): void {
     if (this._currentFuelValue < 1) return;
-
+    
     if (!isNumberCorrect(distance)) {
       this._isDistanceCorrect = false;
       return;
@@ -65,6 +69,14 @@ export class CarComponent implements ICar {
     this.updateInfo();
   }
   
+  private _drive(e): void {
+    if (e.keyCode === 13) this.drive(+e.target.value);
+  }
+  
+  /**
+   * refuel: Дозаправка машины на fuelValue литров топлива
+   * @param {Number} fuelValue
+   */
   public refuel(fuelValue: number): void {
     if (!isNumberCorrect(fuelValue)) {
       this._isRefuelValueCorrect = false;
@@ -84,6 +96,13 @@ export class CarComponent implements ICar {
     this.updateInfo();
   }
   
+  private _refuel(e): void {
+    if (e.keyCode === 13) this.refuel(+e.target.value);
+  }
+  
+  /**
+   * Обновление инфы о машине
+   */
   private updateInfo(): void {
     this.info.name = this._name;
     this.info.kilometrage = this._kilometrage;
