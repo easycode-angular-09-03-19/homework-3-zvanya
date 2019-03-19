@@ -11,12 +11,12 @@
 
 <div id="carControl" class="d-flex">
   <div>
-    Дистанция, км: <input type="text" class="form-control" (keyup)="_drive($event)" [(ngModel)]="_distance">
+    Дистанция, км: <input type="text" class="form-control" [class.error] = "!_isDistanceCorrect" (keyup)="_drive($event)" [(ngModel)]="_distance">
     <hr>
     <button class="btn btn-primary" (click)="drive(_distance)">Ехать</button>
   </div>
   <div [hidden]="!_isTankEmpty">
-    Объем топлива, л: <input type="text" class="form-control" (keyup)="_refuel($event)" [(ngModel)]="_fuel">
+    Объем топлива, л: <input type="text" class="form-control" [class.error] = "!_isRefuelValueCorrect" [class.warning] = "!_isRefuelVolumeCorrect" (keyup)="_refuel($event)" [(ngModel)]="_fuel">
     <hr>
     <button class="btn btn-primary" (click)="refuel(_fuel)">Заправиться</button>
   </div>
