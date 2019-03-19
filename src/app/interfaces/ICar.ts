@@ -1,10 +1,10 @@
 export interface ICar {
   info: {
-    name: string;
+    readonly name: string;
     kilometrage: number;
-    fuelTankVolume: number;
+    readonly fuelTankVolume: number;
     currentFuelValue: number;
-    additionalProperties?: string[];
+    readonly additionalProperties?: string[];
   };
   drive(distance: number): void;
   refuel(fuelValue: number): void;

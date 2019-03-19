@@ -104,11 +104,8 @@ export class CarComponent implements ICar {
    * Обновление инфы о машине
    */
   private updateInfo(): void {
-    this.info.name = this._name;
     this.info.kilometrage = this._kilometrage;
-    this.info.fuelTankVolume = this._fuelTankVolume;
     this.info.currentFuelValue = this._currentFuelValue;
-    this.info.additionalProperties = this._additionalProperties;
     
     this._isTankEmpty = this._currentFuelValue < 1;
   }
