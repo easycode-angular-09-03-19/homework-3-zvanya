@@ -1,0 +1,7 @@
+ul {
+  padding-left: 20px;
+}
+
+#carControl :nth-of-type(2) {
+  margin-left: 30px;
+}

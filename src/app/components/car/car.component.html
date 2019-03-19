@@ -1,12 +1,12 @@
 <ul>
-  <li>Модель: {{ info.name }}</li>
-  <li>Объем бака: {{ info.fuelTankVolume }} л</li>
-  <li>Километраж: {{ info.kilometrage }} км</li>
-  <li>Количество топлива: <b>{{ info.currentFuelValue }}</b> л</li>
+  <li>Модель: {{ car.name }}</li>
+  <li>Объем бака: {{ car.fuelTankVolume }} л</li>
+  <li>Километраж: {{ car.kilometrage }} км</li>
+  <li>Количество топлива: <b>{{ car.currentFuelValue }}</b> л</li>
 </ul>
 
 <ul>
-  <li *ngFor="let prop of info.additionalProperties">{{prop}}</li>
+  <li *ngFor="let prop of car.additionalProperties">{{prop}}</li>
 </ul>
 
 <div id="carControl" class="d-flex">
@@ -24,7 +24,7 @@
 <hr>
 
 <!-- Предупреждения -->
-<div class="alert alert-danger text-center" *ngIf="_currentFuelValue < 1">
+<div class="alert alert-danger text-center" *ngIf="car.currentFuelValue < 1">
   Пора заправиться!
 </div>
 

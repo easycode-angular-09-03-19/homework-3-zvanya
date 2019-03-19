@@ -1,51 +1,40 @@
 import { Component } from '@angular/core';
 import { ICar } from '../../interfaces/ICar'
 
+class Car implements ICar{
+  readonly name: string;
+  kilometrage: number;
+  readonly fuelTankVolume: number;
+  currentFuelValue: number;
+  readonly additionalProperties: string[];
+}
+
 @Component({
   selector: 'app-car',
   templateUrl: './car.component.html',
-  styles: [`
-    ul {
-      padding-left: 20px;
-    }
-  
-    #carControl :nth-of-type(2) {
-      margin-left: 30px;
-    }
-  `]
+  styleUrls: ['./car.component.css']
 })
-export class CarComponent implements ICar {
+export class CarComponent {
   
-  private _name: string;
-  private _kilometrage: number;
-  private _fuelTankVolume: number;
-  private _currentFuelValue: number;
-  private _additionalProperties: string[];
+  public car: Car;
+
+  public _distance: number = 5;
+  public _fuel: number = 5;
   
-  public info;
-  
-  private _distance: number = 5;
-  private _fuel: number = 5;
-  private _isTankEmpty: boolean = false;
-  private _isDistanceCorrect: boolean = true;
-  private _isRefuelValueCorrect: boolean = true;
-  private _isRefuelVolumeCorrect: boolean = true;
+  public _isTankEmpty: boolean = false;
+  public _isDistanceCorrect: boolean = true;
+  public _isRefuelValueCorrect: boolean = true;
+  public _isRefuelVolumeCorrect: boolean = true;
   
   constructor() {
-    this._name = "BMW";
-    this._kilometrage = 0;
-    this._fuelTankVolume = 50;
-    this._currentFuelValue = 0;
-    this._additionalProperties = ['Engine: 4L', 'Max speed: 350km/h', 'Type: sport-car'];
-    
-    this.info = {
-      name: this._name,
-      fuelTankVolume: this._fuelTankVolume,
-      kilometrage: this._kilometrage,
-      currentFuelValue: this._currentFuelValue,
-      additionalProperties: this._additionalProperties
+    this.car = {
+      name: "BMW",
+      kilometrage: 0,
+      fuelTankVolume: 50,
+      currentFuelValue: 0,
+      additionalProperties: ['Engine: 4L', 'Max speed: 350km/h', 'Type: sport-car']
     };
-    
+  
     this.updateInfo();
   }
   
@@ -53,18 +42,18 @@ export class CarComponent implements ICar {
    * drive: поехать на distance километров
    * @param {Number} distance
    */
-  public drive(distance: number): void {
-    if (this._currentFuelValue < 1) return;
+  public drive(distance: number | string): void {
+    if (this.car.currentFuelValue < 1) return;
     
-    if (!isNumberCorrect(distance)) {
+    if (!isNumberCorrect(+distance)) {
       this._isDistanceCorrect = false;
       return;
     }
     
     this._isDistanceCorrect = true;
     
-    this._kilometrage += +distance;
-    this._currentFuelValue--;
+    this.car.kilometrage += +distance;
+    this.car.currentFuelValue--;
     
     this.updateInfo();
   }
@@ -77,21 +66,21 @@ export class CarComponent implements ICar {
    * refuel: Дозаправка машины на fuelValue литров топлива
    * @param {Number} fuelValue
    */
-  public refuel(fuelValue: number): void {
-    if (!isNumberCorrect(fuelValue)) {
+  public refuel(fuelValue: number | string): void {
+    if (!isNumberCorrect(+fuelValue)) {
       this._isRefuelValueCorrect = false;
+      this._isRefuelVolumeCorrect = true;
       return;
     }
-    
-    if (+fuelValue + this._currentFuelValue > this._fuelTankVolume) {
+    this._isRefuelValueCorrect = true;
+  
+    if (+fuelValue + this.car.currentFuelValue > this.car.fuelTankVolume) {
       this._isRefuelVolumeCorrect = false;
       return;
     }
-    
-    this._isRefuelValueCorrect = true;
     this._isRefuelVolumeCorrect = true;
     
-    this._currentFuelValue += +fuelValue;
+    this.car.currentFuelValue += +fuelValue;
     
     this.updateInfo();
   }
@@ -104,10 +93,7 @@ export class CarComponent implements ICar {
    * Обновление инфы о машине
    */
   private updateInfo(): void {
-    this.info.kilometrage = this._kilometrage;
-    this.info.currentFuelValue = this._currentFuelValue;
-    
-    this._isTankEmpty = this._currentFuelValue < 1;
+    this._isTankEmpty = this.car.currentFuelValue < 1;
   }
   
 }
