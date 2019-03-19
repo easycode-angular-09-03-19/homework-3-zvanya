@@ -1,14 +1,6 @@
 import { Component } from '@angular/core';
 import { ICar } from '../../interfaces/ICar'
 
-class Car implements ICar{
-  readonly name: string;
-  kilometrage: number;
-  readonly fuelTankVolume: number;
-  currentFuelValue: number;
-  readonly additionalProperties: string[];
-}
-
 @Component({
   selector: 'app-car',
   templateUrl: './car.component.html',
@@ -16,8 +8,8 @@ class Car implements ICar{
 })
 export class CarComponent {
   
-  public car: Car;
-
+  public car: ICar;
+  
   public _distance: number = 5;
   public _fuel: number = 5;
   
