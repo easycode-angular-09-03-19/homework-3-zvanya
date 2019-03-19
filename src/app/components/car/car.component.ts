@@ -40,7 +40,7 @@ export class CarComponent {
   
   /**
    * drive: поехать на distance километров
-   * @param {Number} distance
+   * @param {Number | String} distance
    */
   public drive(distance: number | string): void {
     if (this.car.currentFuelValue < 1) return;
@@ -64,7 +64,7 @@ export class CarComponent {
   
   /**
    * refuel: Дозаправка машины на fuelValue литров топлива
-   * @param {Number} fuelValue
+   * @param {Number | String} fuelValue
    */
   public refuel(fuelValue: number | string): void {
     if (!isNumberCorrect(+fuelValue)) {
